@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "167529806001",
+    "project_id": "dialectos-3a996",
+    "storage_bucket": "dialectos-3a996.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:167529806001:android:8cb36b65fa77a23ff40a90",
+        "android_client_info": {
+          "package_name": "com.example.dialektos"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "167529806001-2b3qnb5ls6puqgnqps3i0lsmaq8g2rca.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBD8BzSbqvBpg1o96mv91KJRbBWJzU5zDY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "167529806001-2b3qnb5ls6puqgnqps3i0lsmaq8g2rca.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
