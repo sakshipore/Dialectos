@@ -2,13 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-showSnackBar(String title, String subtitle, Icon icon) {
+showSnackBar(String title, String subtitle, {bool isError = false}) {
   return Get.snackbar(
     title,
     subtitle,
-    icon: icon,
     snackPosition: SnackPosition.BOTTOM,
-    backgroundColor: Colors.green,
+    backgroundColor: isError ? Color(0xfff56262) : Colors.green,
     borderRadius: 20.r,
     margin: EdgeInsets.all(15.w),
     colorText: Colors.white,

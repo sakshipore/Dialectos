@@ -30,7 +30,7 @@ class AuthController extends GetxController {
       showSnackBar(
         "OOPS!!!",
         "Something went wrong",
-        Icon(Icons.close, color: Colors.red),
+        isError: true,
       );
     } finally {
       isLoading = false;
@@ -50,7 +50,7 @@ class AuthController extends GetxController {
       showSnackBar(
         "OOPS!!!",
         "Something went wrong",
-        Icon(Icons.close, color: Colors.red),
+        isError: true,
       );
     } finally {
       isLoading = false;

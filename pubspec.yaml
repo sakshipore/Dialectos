@@ -13,6 +13,7 @@ dependencies:
   firebase_core: ^2.8.0
   flutter:
     sdk: flutter
+  flutter_launcher_icons: ^0.12.0
   flutter_screenutil: ^5.7.0
   get: ^4.6.5
   google_sign_in: ^6.0.2
@@ -20,14 +21,14 @@ dependencies:
   shared_preferences: ^2.0.20
 
 flutter_native_splash:
-  android: true
-  ios: true
-  web: true
-  color: "#FFFFFF"
-  image: "assets/images/logo.png"
-  android_12: 
-    image: "assets/images/logo.png"
+  background_image: "assets/images/app-icon.png"
   # flutter clean && flutter pub get && flutter pub run flutter_native_splash:create
+
+flutter_icons: 
+  image_path: "assets/images/app-icon.png"
+  android: "launcher_icon"
+  remove_alpha_ios: true
+  ios: true
 
 dev_dependencies:
   flutter_lints: ^2.0.0
