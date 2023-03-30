@@ -34,7 +34,7 @@ class MySharedService {
     return prefs.getString('firstName');
   }
 
-  void removeSharedService() async {
+  Future<void> removeSharedService() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.clear();
   }

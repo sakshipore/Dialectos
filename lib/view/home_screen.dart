@@ -1,6 +1,11 @@
 import 'package:dialectos/constants/text_style.dart';
+import 'package:dialectos/controllers/auth_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
+
+import '../services/firebase_service.dart';
+import '../services/shared_service.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -12,6 +17,19 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: Color(0xffC5E83A),
         toolbarHeight: 50.h,
         elevation: 0,
+        actions: [
+          InkWell(
+            onTap: () async {
+              AuthController controller =
+                  Get.put(AuthController(MySharedService(), FirebaseService()));
+              await controller.logout();
+            },
+            child: Icon(
+              Icons.logout,
+              color: Colors.black,
+            ),
+          ),
+        ],
       ),
       body: SafeArea(
         child: SingleChildScrollView(

@@ -28,12 +28,10 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
-          // TODO : Persistent Login Check
-          initialRoute: RoutesNames.homeScreen,
+          initialRoute:
+              isLoggedIn ? RoutesNames.homeScreen : RoutesNames.loginScreen,
           getPages: AppRoutes.routes,
-          theme: ThemeData(
-            fontFamily: "Poppins",
-          ),
+          theme: ThemeData(fontFamily: "Poppins"),
         );
       },
     );

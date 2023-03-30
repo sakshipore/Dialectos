@@ -62,6 +62,7 @@ class FirebaseService {
 
     try {
       await auth.signOut();
+      await GoogleSignIn().signOut();
       log('User is signed out');
     } catch (e) {
       log('Failed to sign out user: $e');

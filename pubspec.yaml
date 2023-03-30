@@ -16,16 +16,30 @@ dependencies:
   flutter_screenutil: ^5.7.0
   get: ^4.6.5
   google_sign_in: ^6.0.2
+  loading_indicator: ^3.1.0
   shared_preferences: ^2.0.20
+
+flutter_native_splash:
+  android: true
+  ios: true
+  web: true
+  color: "#FFFFFF"
+  image: "assets/images/logo.png"
+  android_12: 
+    image: "assets/images/logo.png"
+  # flutter clean && flutter pub get && flutter pub run flutter_native_splash:create
 
 dev_dependencies:
   flutter_lints: ^2.0.0
+  flutter_native_splash: ^2.2.19
   flutter_test:
     sdk: flutter
+
+
 flutter:
   uses-material-design: true
   assets: 
-      - assets/images
+      - assets/images/
   fonts:
     - family: Poppins
       fonts:

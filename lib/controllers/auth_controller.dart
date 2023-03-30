@@ -1,8 +1,11 @@
 import 'dart:developer';
 
+import 'package:dialectos/routes/routes_names.dart';
 import 'package:dialectos/services/firebase_service.dart';
 import 'package:dialectos/services/shared_service.dart';
+import 'package:dialectos/widgets/widgets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AuthController extends GetxController {
@@ -16,12 +19,39 @@ class AuthController extends GetxController {
 
   Future<void> login() async {
     try {
+      isLoading = true;
+      update();
       User? user = await _firebaseService.signInWithGoogle();
       if (user == null) throw "Something went wrong";
       await setUserData(true, user.displayName!, user.uid);
+      Get.offAllNamed(RoutesNames.homeScreen);
     } catch (e) {
       log(e.toString());
-      // TODO: Snackbar
+      showSnackBar(
+        "OOPS!!!",
+        "Something went wrong",
+        Icon(Icons.close, color: Colors.red),
+      );
+    } finally {
+      isLoading = false;
+      update();
+    }
+  }
+
+  Future<void> logout() async {
+    try {
+      isLoading = true;
+      update();
+      await _firebaseService.signOut();
+      await _sharedService.removeSharedService();
+      Get.offAllNamed(RoutesNames.loginScreen);
+    } catch (e) {
+      log(e.toString());
+      showSnackBar(
+        "OOPS!!!",
+        "Something went wrong",
+        Icon(Icons.close, color: Colors.red),
+      );
     } finally {
       isLoading = false;
       update();
