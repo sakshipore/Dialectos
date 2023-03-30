@@ -59,8 +59,6 @@ class AudioController extends GetxController {
     } catch (e) {
       log(e.toString());
       return "";
-    } finally {
-      update();
     }
   }
 

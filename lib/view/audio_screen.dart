@@ -19,6 +19,52 @@ class AudioScreen extends StatefulWidget {
 class _AudioScreenState extends State<AudioScreen> {
   AudioController audioController = Get.find<AudioController>();
   AudioPlayer audioPlayer = AudioPlayer();
+  bool isPlaying = false;
+  Duration duration = Duration.zero;
+  Duration position = Duration.zero;
+
+  @override
+  void initState() {
+    setAudio();
+
+    audioPlayer.onPlayerStateChanged.listen((state) {
+      if (mounted) {
+        setState(() {
+          isPlaying = state == PlayerState.PLAYING;
+        });
+      }
+    });
+
+    audioPlayer.onDurationChanged.listen((newDuration) {
+      if (mounted) {
+        setState(() {
+          duration = newDuration;
+        });
+      }
+    });
+
+    audioPlayer.onAudioPositionChanged.listen((newPosition) {
+      if (mounted) {
+        setState(() {
+          position = newPosition;
+        });
+      }
+    });
+    super.initState();
+  }
+
+  setAudio() {
+    String url =
+        audioController.getAudioOfSelectedAccent(widget.selectedAccent);
+    audioPlayer.setUrl(url);
+  }
+
+  @override
+  void dispose() {
+    audioPlayer.stop();
+    audioPlayer.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,18 +79,14 @@ class _AudioScreenState extends State<AudioScreen> {
                 children: [
                   Column(
                     children: [
-                      SizedBox(
-                        height: 15.h,
-                      ),
+                      SizedBox(height: 15.h),
                       Row(
                         children: [
                           Icon(Icons.arrow_back_ios_new_rounded,
                               color: Color(0xffC5E83A), size: 20.sp
                               // size: 12.sp,
                               ),
-                          SizedBox(
-                            width: 10.w,
-                          ),
+                          SizedBox(width: 10.w),
                           Text(
                             "Back",
                             style: MyTextStyle.normalTextStyle
@@ -52,9 +94,7 @@ class _AudioScreenState extends State<AudioScreen> {
                           ),
                         ],
                       ),
-                      SizedBox(
-                        height: 20.sp,
-                      ),
+                      SizedBox(height: 20.sp),
                       Container(
                         height: 550.h,
                         width: MediaQuery.of(context).size.width,
@@ -76,15 +116,33 @@ class _AudioScreenState extends State<AudioScreen> {
                       ),
                     ],
                   ),
-                  FloatingActionButton(
-                    onPressed: () async {
-                      log("Selected Accent : ${widget.selectedAccent}");
-                      // int result =
-                      await audioPlayer.play(
-                        audioController
-                            .getAudioOfSelectedAccent(widget.selectedAccent),
-                      );
+                  Slider(
+                    min: 0,
+                    max: duration.inSeconds.toDouble(),
+                    value: position.inSeconds.toDouble(),
+                    activeColor: Color(0xffC5E83A),
+                    onChanged: (value) async {
+                      final position = Duration(seconds: value.toInt());
+                      await audioPlayer.seek(position);
+                      await audioPlayer.resume();
                     },
+                  ),
+                  CircleAvatar(
+                    radius: 45.r,
+                    child: IconButton(
+                      icon: Icon(isPlaying
+                          ? Icons.pause_rounded
+                          : Icons.play_arrow_outlined),
+                      iconSize: 20.sp,
+                      color: Color(0xff292D32),
+                      onPressed: () async {
+                        if (isPlaying) {
+                          await audioPlayer.pause();
+                        } else {
+                          await audioPlayer.resume();
+                        }
+                      },
+                    ),
                   ),
                 ],
               ),

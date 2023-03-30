@@ -3,7 +3,6 @@ import 'package:dialectos/routes/routes_names.dart';
 import 'package:dialectos/view/home_screen.dart';
 import 'package:dialectos/view/login_screen.dart';
 import 'package:dialectos/view/audio_screen.dart';
-import 'package:dialectos/view/selected_accent_screen.dart';
 import 'package:get/get.dart';
 
 class AppRoutes {
@@ -22,10 +21,6 @@ class AppRoutes {
       arguments: String,
       page: () => AudioScreen(selectedAccent: Get.arguments),
     ),
-    GetPage(
-      name: RoutesNames.selectedAccentScreen,
-      arguments: String,
-      page: () => SelectedAccentScreen(selectedAccent: Get.arguments),
-    ),
+    
   ];
 }
