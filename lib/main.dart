@@ -31,6 +31,9 @@ class MyApp extends StatelessWidget {
           // TODO : Persistent Login Check
           initialRoute: RoutesNames.homeScreen,
           getPages: AppRoutes.routes,
+          theme: ThemeData(
+            fontFamily: "Poppins",
+          ),
         );
       },
     );
