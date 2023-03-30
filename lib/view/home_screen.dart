@@ -116,14 +116,12 @@ class _HomeScreenState extends State<HomeScreen> {
                           physics: NeverScrollableScrollPhysics(),
                           itemBuilder: (context, index) {
                             return GestureDetector(
-                              onTap: () {
+                              onTap: () async {
                                 String selectedAccent =
-                                    controller.accentList[index];
+                                    await controller.accentList[index];
                                 log(selectedAccent);
-                                Get.toNamed(
-                                  RoutesNames.selectedAccentScreen,
-                                  arguments: selectedAccent,
-                                );
+                                Get.toNamed(RoutesNames.audioScreen,
+                                    arguments: selectedAccent);
                                 // Get.toNamed(RoutesNames.audioScreen,
                                 //     arguments: selectedAccent);
                               },
