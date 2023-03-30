@@ -5,7 +5,6 @@ import 'package:dialectos/services/firebase_service.dart';
 import 'package:dialectos/services/shared_service.dart';
 import 'package:dialectos/widgets/widgets.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AuthController extends GetxController {
