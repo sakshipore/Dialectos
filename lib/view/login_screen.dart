@@ -1,5 +1,6 @@
 import 'package:dialectos/constants/text_style.dart';
 import 'package:dialectos/controllers/auth_controller.dart';
+import 'package:dialectos/helpers/asset_helper.dart';
 import 'package:dialectos/widgets/loader.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -17,6 +18,11 @@ class LoginScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            SizedBox(
+              height: 400.h,
+              child: Image.asset(AssetHelper.signupImage),
+            ),
+            SizedBox(height: 30.h),
             GetBuilder<AuthController>(
               builder: (controller) {
                 return InkWell(
