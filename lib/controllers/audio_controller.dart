@@ -43,6 +43,25 @@ class AudioController extends GetxController {
   //   }
   // }
 
+  Future<String> getAudioOfSelectedAccent(String selectedAccent) async {
+    try {
+      String audioFile = "";
+      for (Map<String, dynamic> data in dataList) {
+        if (data.containsKey(selectedAccent)) {
+          audioFile = data[selectedAccent];
+          break;
+        }
+      }
+      log(audioFile);
+      return audioFile;
+    } catch (e) {
+      log(e.toString());
+      return "";
+    } finally {
+      update();
+    }
+  }
+
   Future<void> getAllDocuments() async {
     await FirebaseFirestore.instance
         .collection('accents')
