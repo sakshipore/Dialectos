@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:audioplayers/audioplayers.dart';
+import 'package:dialectos/widgets/text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -22,6 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
   AudioPlayer audioPlayer = AudioPlayer();
   String? documentId;
   String? audioFileUrl;
+  bool isSearching = false;
 
   @override
   void initState() {
@@ -56,22 +58,50 @@ class _HomeScreenState extends State<HomeScreen> {
                       : Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            SizedBox(
-                              height: 15.h,
+                            isSearching
+                                ? MyTextField(
+                                    controller: controller.controller,
+                                  )
+                                : Text(
+                                    "Select Accent",
+                                    style: MyTextStyle.headingTextStyle,
+                                  ),
+                            GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  isSearching = true;
+                                });
+                              },
+                              child: Icon(
+                                Icons.search,
+                                color: Color(0xffC5E83A),
+                                size: 25.sp,
+                              ),
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Select Accent",
-                                  style: MyTextStyle.headingTextStyle,
-                                ),
-                                Icon(
-                                  Icons.search,
-                                  color: Color(0xffC5E83A),
-                                  size: 25.sp,
-                                )
-                              ],
+                            SizedBox(
+                              height: 20.sp,
+                            ),
+                            ListView.builder(
+                              itemCount: controller.accentList.length,
+                              shrinkWrap: true,
+                              physics: NeverScrollableScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                return GestureDetector(
+                                    onTap: () async {
+                                      String selectedAccent =
+                                          await controller.accentList[index];
+                                      log(selectedAccent);
+                                      Get.toNamed(RoutesNames.audioScreen,
+                                          arguments: selectedAccent);
+                                      // Get.toNamed(RoutesNames.audioScreen,
+                                      //     arguments: selectedAccent);
+                                    },
+                                    child: ListTile(
+                                      title: Text(
+                                        controller.accentList[index],
+                                      ),
+                                    ));
+                              },
                             ),
                             SizedBox(height: 20.h),
                             ListView.builder(

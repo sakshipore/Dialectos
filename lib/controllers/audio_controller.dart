@@ -1,12 +1,14 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AudioController extends GetxController {
   List<Map<String, dynamic>> dataList = [];
   List<String> accentList = [];
   bool isLoading = true;
+  TextEditingController controller = TextEditingController();
   // Future<String> getAudioFileDocumentId(String audioFileName) async {
   //   try {
   //     final querySnapshot = await FirebaseFirestore.instance
