@@ -1,6 +1,7 @@
 import 'package:dialectos/firebase_options.dart';
 import 'package:dialectos/routes/routes.dart';
 import 'package:dialectos/routes/routes_names.dart';
+import 'package:dialectos/services/shared_service.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,11 +12,13 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp());
+  bool isLoggedIn = await MySharedService().getLoginStatus() ?? false;
+  runApp(MyApp(isLoggedIn: isLoggedIn));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final bool isLoggedIn;
+  MyApp({super.key, required this.isLoggedIn});
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +28,7 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
+          // TODO : Persistent Login Check
           initialRoute: RoutesNames.homeScreen,
           getPages: AppRoutes.routes,
         );
