@@ -9,31 +9,39 @@ class MyTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      controller: controller,
-      onChanged: (value) {
-        if (onChanged != null) {
-          onChanged!(value);
-        }
-      },
-      decoration: InputDecoration(
-        prefixIcon:
-            Icon(Icons.search, color: Color(0xff2C2C2C).withOpacity(0.3)),
-        fillColor: Colors.white,
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: Color(0xff2C2C2C),
+    return Container(
+      width: 320.w,
+      height: 40.h,
+      child: TextFormField(
+        controller: controller,
+        onChanged: (value) {
+          if (onChanged != null) {
+            onChanged!(value);
+          }
+        },
+        // textAlignVertical: TextAlignVertical.center,
+        decoration: InputDecoration(
+          contentPadding: EdgeInsets.symmetric(vertical: 5.h),
+          prefixIcon:
+              Icon(Icons.search, color: Color(0xff2C2C2C).withOpacity(0.3)),
+          fillColor: Colors.white,
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.r),
+            borderSide: BorderSide(
+              color: Color(0xffC5E83A),
+            ),
           ),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: Color(0xff2C2C2C),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10.r),
+            borderSide: BorderSide(
+              color: Color(0xffC5E83A),
+            ),
           ),
-        ),
-        hintText: "Search accent",
-        hintStyle: MyTextStyle.normalTextStyle.copyWith(
-          fontSize: 10.sp,
-          color: Color(0xff2C2C2C).withOpacity(0.3),
+          hintText: "Search accent",
+          hintStyle: MyTextStyle.normalTextStyle.copyWith(
+            fontSize: 14.sp,
+            color: Color(0xff2C2C2C).withOpacity(0.3),
+          ),
         ),
       ),
     );

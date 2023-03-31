@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:audioplayers/audioplayers.dart';
+import 'package:dialectos/widgets/loader.dart';
 import 'package:dialectos/widgets/text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -46,27 +47,25 @@ class _HomeScreenState extends State<HomeScreen> {
                   padding:
                       EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
                   child: controller.isLoading
-                      ? Center(
-                          child: CircularProgressIndicator(
-                            color: Color(0xffC5E83A),
-                          ),
+                      ? SizedBox(
+                          height: MediaQuery.of(context).size.height,
+                          child: Center(child: LoadingWidget()),
                         )
                       : Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            SizedBox(
+                              height: 20.h,
+                            ),
                             Row(
                               children: [
                                 isSearching
-                                    ? SizedBox(
-                                        width: 320.w,
-                                        height: 45.h,
-                                        child: MyTextField(
-                                          controller: controller.controller,
-                                          onChanged: (value) {
-                                            audioController
-                                                .buildSuggestions(value);
-                                          },
-                                        ),
+                                    ? MyTextField(
+                                        controller: controller.controller,
+                                        onChanged: (value) {
+                                          audioController
+                                              .buildSuggestions(value);
+                                        },
                                       )
                                     : Text(
                                         "Select Accent",

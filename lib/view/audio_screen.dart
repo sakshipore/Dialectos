@@ -1,11 +1,10 @@
-import 'dart:developer';
-
 import 'package:audioplayers/audioplayers.dart';
 import 'package:dialectos/constants/text_style.dart';
 import 'package:dialectos/controllers/audio_controller.dart';
 import 'package:dialectos/widgets/my_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 class AudioScreen extends StatefulWidget {
@@ -80,23 +79,28 @@ class _AudioScreenState extends State<AudioScreen> {
                   Column(
                     children: [
                       SizedBox(height: 15.h),
-                      Row(
-                        children: [
-                          Icon(Icons.arrow_back_ios_new_rounded,
-                              color: Color(0xffC5E83A), size: 20.sp
-                              // size: 12.sp,
-                              ),
-                          SizedBox(width: 10.w),
-                          Text(
-                            "Back",
-                            style: MyTextStyle.normalTextStyle
-                                .copyWith(fontSize: 12.sp),
-                          ),
-                        ],
+                      GestureDetector(
+                        onTap: () {
+                          Get.back();
+                        },
+                        child: Row(
+                          children: [
+                            Icon(Icons.arrow_back_ios_new_rounded,
+                                color: Color(0xffC5E83A), size: 20.sp
+                                // size: 12.sp,
+                                ),
+                            SizedBox(width: 10.w),
+                            Text(
+                              "Back",
+                              style: MyTextStyle.normalTextStyle
+                                  .copyWith(fontSize: 14.sp),
+                            ),
+                          ],
+                        ),
                       ),
                       SizedBox(height: 20.sp),
                       Container(
-                        height: 550.h,
+                        // height: 400.h,
                         width: MediaQuery.of(context).size.width,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10.r),
@@ -107,14 +111,18 @@ class _AudioScreenState extends State<AudioScreen> {
                         ),
                         child: Padding(
                           padding: EdgeInsets.symmetric(
-                              horizontal: 5.w, vertical: 5.h),
+                              horizontal: 8.w, vertical: 15.h),
                           child: Text(
-                            "On the other hand, we denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire, that they cannot foresee the pain and trouble that are bound to ensue; and equal blame belongs to those who fail in their duty through weakness of will, which is the same as saying through shrinking from toil and pain. These cases are perfectly simple and easy to distinguish. In a free hour, when our power of choice is untrammelled and when nothing prevents our being able to do what we like best, every pleasure is to be welcomed and every pain avoided. But in certain circumstances and owing to the claims of duty or the obligations of business it will frequently occur that pleasures have to be repudiated and annoyances accepted. The wise man therefore always holds in these matters to this principle of selection: he rejects pleasures to secure other greater pleasures, or else he endures pains to avoid worse pains.",
-                            style: MyTextStyle.normalTextStyle,
+                            "Please call Stella.  Ask her to bring these things with her from the store:  Six spoons of fresh snow peas, five thick slabs of blue cheese, and maybe a snack for her brother Bob.  We also need a small plastic snake and a big toy frog for the kids.  She can scoop these things into three red bags, and we will go meet her Wednesday at the train station.",
+                            style: MyTextStyle.normalTextStyle
+                                .copyWith(fontSize: 20.sp),
                           ),
                         ),
                       ),
                     ],
+                  ),
+                  SizedBox(
+                    height: 80.h,
                   ),
                   Slider(
                     min: 0,
@@ -127,23 +135,30 @@ class _AudioScreenState extends State<AudioScreen> {
                       await audioPlayer.resume();
                     },
                   ),
-                  CircleAvatar(
-                    radius: 45.r,
-                    backgroundColor: Color(0xffC5E83A),
-                    child: IconButton(
-                      // color: Color(0xffC5E83A),
-                      icon: Icon(isPlaying
-                          ? Icons.pause_rounded
-                          : Icons.play_arrow_outlined, color: Color(0xff292D32), size: 20.sp,),
-                      
-                      
-                      onPressed: () async {
-                        if (isPlaying) {
-                          await audioPlayer.pause();
-                        } else {
-                          await audioPlayer.resume();
-                        }
-                      },
+                  GestureDetector(
+                    onTap: () async {
+                      if (isPlaying) {
+                        await audioPlayer.pause();
+                      } else {
+                        await audioPlayer.resume();
+                      }
+                    },
+                    child: CircleAvatar(
+                      radius: 45.r,
+                      backgroundColor: Color(0xffC5E83A),
+                      child:
+                          // color: Color(0xffC5E83A),
+                          isPlaying
+                              ? SvgPicture.asset(
+                                  "assets/icons/pause.svg",
+                                  height: 24.h,
+                                  width: 24.w,
+                                )
+                              : SvgPicture.asset(
+                                  "assets/icons/play.svg",
+                                  height: 24.h,
+                                  width: 24.w,
+                                ),
                     ),
                   ),
                 ],
