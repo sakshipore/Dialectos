@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MyTextField extends StatelessWidget {
-  Function(String)? onChanged;
-  TextEditingController controller = new TextEditingController();
+  final Function(String)? onChanged;
+  final TextEditingController controller;
   MyTextField({super.key, required this.controller, this.onChanged});
 
   @override

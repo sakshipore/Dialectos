@@ -7,8 +7,23 @@ import 'package:get/get.dart';
 class AudioController extends GetxController {
   List<Map<String, dynamic>> dataList = [];
   List<String> accentList = [];
+  List<String> suggestions = [];
   bool isLoading = true;
   TextEditingController controller = TextEditingController();
+
+  void buildSuggestions(String query) {
+    query = query.toLowerCase();
+    if (query == "") {
+      suggestions = accentList;
+    } else {
+      suggestions = accentList.where((element) {
+        element = element.toLowerCase();
+        return element.contains(query);
+      }).toList();
+    }
+    update();
+  }
+
   // Future<String> getAudioFileDocumentId(String audioFileName) async {
   //   try {
   //     final querySnapshot = await FirebaseFirestore.instance
@@ -90,6 +105,7 @@ class AudioController extends GetxController {
           .toList();
 
       // log(accentList.toString());
+      suggestions = accentList;
       return accentList;
     } catch (e) {
       return [];
