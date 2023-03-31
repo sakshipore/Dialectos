@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:dialectos/constants/text_style.dart';
 import 'package:dialectos/controllers/audio_controller.dart';
 import 'package:dialectos/routes/routes_names.dart';
+import 'package:dialectos/widgets/my_appbar.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -35,83 +36,91 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: GetBuilder<AudioController>(
-        builder: (controller) {
-          return SafeArea(
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.w),
-                child: controller.isLoading
-                    ? Center(
-                        child: CircularProgressIndicator(
-                          color: Color(0xffC5E83A),
+    return SafeArea(
+      child: Scaffold(
+        body: GetBuilder<AudioController>(
+          builder: (controller) {
+            return SafeArea(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+                  child: controller.isLoading
+                      ? Center(
+                          child: CircularProgressIndicator(
+                            color: Color(0xffC5E83A),
+                          ),
+                        )
+                      : Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                isSearching
+                                    ? SizedBox(
+                                        width: 320.w,
+                                        height: 45.h,
+                                        child: MyTextField(
+                                          controller: controller.controller,
+                                          onChanged: (value) {
+                                            audioController
+                                                .buildSuggestions(value);
+                                          },
+                                        ),
+                                      )
+                                    : Text(
+                                        "Select Accent",
+                                        style: MyTextStyle.headingTextStyle,
+                                      ),
+                                Spacer(),
+                                isSearching
+                                    ? Container()
+                                    : GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            isSearching = true;
+                                          });
+                                        },
+                                        child: Icon(
+                                          Icons.search,
+                                          color: Color(0xffC5E83A),
+                                          size: 25.sp,
+                                        ),
+                                      ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 20.sp,
+                            ),
+                            ListView.builder(
+                              itemCount: controller.suggestions.length,
+                              shrinkWrap: true,
+                              physics: NeverScrollableScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                return GestureDetector(
+                                    onTap: () async {
+                                      String selectedAccent =
+                                          await controller.suggestions[index];
+                                      log(selectedAccent);
+                                      Get.toNamed(RoutesNames.audioScreen,
+                                          arguments: selectedAccent);
+                                      // Get.toNamed(RoutesNames.audioScreen,
+                                      //     arguments: selectedAccent);
+                                    },
+                                    child: ListTile(
+                                      title: Text(
+                                        controller.suggestions[index],
+                                      ),
+                                    ));
+                              },
+                            ),
+                          ],
                         ),
-                      )
-                    : Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            height: 15.h,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              isSearching
-                                  ? MyTextField(
-                                      controller: controller.controller,
-                                      onChanged: (String value) {
-                                        audioController.buildSuggestions(value);
-                                      },
-                                    )
-                                  : Text(
-                                      "Select Accent",
-                                      style: MyTextStyle.headingTextStyle,
-                                    ),
-                              GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    isSearching = true;
-                                  });
-                                },
-                                child: Icon(
-                                  Icons.search,
-                                  color: Color(0xffC5E83A),
-                                  size: 25.sp,
-                                ),
-                              )
-                            ],
-                          ),
-                          SizedBox(
-                            height: 20.sp,
-                          ),
-                          ListView.builder(
-                            itemCount: controller.suggestions.length,
-                            shrinkWrap: true,
-                            physics: NeverScrollableScrollPhysics(),
-                            itemBuilder: (context, index) {
-                              return GestureDetector(
-                                onTap: () async {
-                                  String selectedAccent =
-                                      controller.suggestions[index];
-                                  log(selectedAccent);
-                                  Get.toNamed(RoutesNames.audioScreen,
-                                      arguments: selectedAccent);
-                                },
-                                child: ListTile(
-                                  title: Text(
-                                    controller.suggestions[index],
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                        ],
-                      ),
+                ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }

@@ -21,7 +21,7 @@ dependencies:
   shared_preferences: ^2.0.20
 
 flutter_native_splash:
-  background_image: "assets/images/app-icon.png"
+  background_image: "assets/images/splash.png"
   # flutter clean && flutter pub get && flutter pub run flutter_native_splash:create
 
 flutter_icons: 
