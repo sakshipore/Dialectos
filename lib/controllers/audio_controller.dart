@@ -63,11 +63,9 @@ class AudioController extends GetxController {
   String getAudioOfSelectedAccent(String selectedAccent) {
     try {
       String audioFile = "";
-      log(dataList.length.toString());
       for (Map<String, dynamic> data in dataList) {
         if (data.containsKey(selectedAccent)) {
           audioFile = data[selectedAccent];
-          log(audioFile);
           return audioFile;
         }
       }

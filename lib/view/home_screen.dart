@@ -94,15 +94,12 @@ class _HomeScreenState extends State<HomeScreen> {
                               shrinkWrap: true,
                               physics: NeverScrollableScrollPhysics(),
                               itemBuilder: (context, index) {
-                                return GestureDetector(
+                                return InkWell(
                                     onTap: () async {
                                       String selectedAccent =
-                                          await controller.suggestions[index];
-                                      log(selectedAccent);
+                                          controller.suggestions[index];
                                       Get.toNamed(RoutesNames.audioScreen,
                                           arguments: selectedAccent);
-                                      // Get.toNamed(RoutesNames.audioScreen,
-                                      //     arguments: selectedAccent);
                                     },
                                     child: ListTile(
                                       title: Text(
