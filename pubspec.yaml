@@ -6,8 +6,9 @@ version: 1.0.0+1
 environment:
   sdk: ">=2.18.6 <3.0.0"
 dependencies:
-  audioplayers: ^0.19.1
+  audioplayers: ^0.20.1
   cloud_firestore: ^4.4.5
+  flutter_ffmpeg: ^0.4.0
   cupertino_icons: ^1.0.2
   dio: ^5.1.1
   firebase_auth: ^4.3.0
@@ -24,6 +25,9 @@ dependencies:
 
 flutter_native_splash:
   background_image: "assets/images/splash.png"
+  fill: true
+  width: 300
+  height: 300
   # flutter clean && flutter pub get && flutter pub run flutter_native_splash:create
 
 flutter_icons:

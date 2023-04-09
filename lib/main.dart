@@ -15,8 +15,8 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-  FlutterNativeSplash.remove();
   bool isLoggedIn = await MySharedService().getLoginStatus() ?? false;
+  FlutterNativeSplash.remove();
   runApp(MyApp(isLoggedIn: isLoggedIn));
 }
 
