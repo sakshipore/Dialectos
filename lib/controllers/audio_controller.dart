@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dialectos/services/dialectos_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -10,6 +11,19 @@ class AudioController extends GetxController {
   List<String> suggestions = [];
   bool isLoading = true;
   TextEditingController controller = TextEditingController();
+  final DialectosService service = DialectosService();
+
+  Future<void> fetchAccents() async {
+    try {
+      List<Map<String, dynamic>> res = await service.fetchAccents();
+      dataList = res;
+    } catch (e) {
+      log(e.toString());
+    } finally {
+      isLoading = false;
+      update();
+    }
+  }
 
   void buildSuggestions(String query) {
     query = query.toLowerCase();
@@ -79,19 +93,19 @@ class AudioController extends GetxController {
     }
   }
 
-  Future<void> getAllDocuments() async {
-    await FirebaseFirestore.instance
-        .collection('accents')
-        .get()
-        .then((QuerySnapshot snapshot) {
-      for (var doc in snapshot.docs) {
-        var data = doc.data();
-        dataList.add(data as Map<String, dynamic>);
-      }
-    });
+  // Future<void> getAllDocuments() async {
+  //   await FirebaseFirestore.instance
+  //       .collection('accents')
+  //       .get()
+  //       .then((QuerySnapshot snapshot) {
+  //     for (var doc in snapshot.docs) {
+  //       var data = doc.data();
+  //       dataList.add(data as Map<String, dynamic>);
+  //     }
+  //   });
 
     // log(dataList.length.toString());
-  }
+  // }
 
   Future<List<String>> getListOfAccents() async {
     try {

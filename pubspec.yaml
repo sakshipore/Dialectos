@@ -9,6 +9,7 @@ dependencies:
   audioplayers: ^0.19.1
   cloud_firestore: ^4.4.5
   cupertino_icons: ^1.0.2
+  dio: ^5.1.1
   firebase_auth: ^4.3.0
   firebase_core: ^2.8.0
   flutter:
@@ -25,7 +26,7 @@ flutter_native_splash:
   background_image: "assets/images/splash.png"
   # flutter clean && flutter pub get && flutter pub run flutter_native_splash:create
 
-flutter_icons: 
+flutter_icons:
   image_path: "assets/images/app-icon.png"
   android: "launcher_icon"
   remove_alpha_ios: true
@@ -37,12 +38,11 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-
 flutter:
   uses-material-design: true
-  assets: 
-      - assets/images/
-      - assets/icons/
+  assets:
+    - assets/images/
+    - assets/icons/
   fonts:
     - family: Poppins
       fonts:

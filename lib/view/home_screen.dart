@@ -29,7 +29,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   gettingAudioFiles() async {
-    await audioController.getAllDocuments();
+    await audioController.fetchAccents();
+    // await audioController.getAllDocuments();
     await audioController.getListOfAccents();
   }
 
