@@ -15,8 +15,10 @@ class AudioController extends GetxController {
 
   Future<void> fetchAccents() async {
     try {
-      List<Map<String, dynamic>> res = await service.fetchAccents();
-      dataList = res;
+      List<dynamic> res = await service.fetchAccents();
+      log(res.toString());
+      // dataList = res;
+      // log(dataList.toString());
     } catch (e) {
       log(e.toString());
     } finally {
@@ -102,7 +104,7 @@ class AudioController extends GetxController {
   //     }
   //   });
 
-    // log(dataList.length.toString());
+  // log(dataList.length.toString());
   // }
 
   Future<List<String>> getListOfAccents() async {
