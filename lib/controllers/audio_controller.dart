@@ -15,9 +15,11 @@ class AudioController extends GetxController {
 
   Future<void> fetchAccents() async {
     try {
-      List<dynamic> res = await service.fetchAccents();
+      List<Map<String, dynamic>> res = await service
+          .fetchAccents()
+          .then((value) => value.cast<Map<String, dynamic>>());
       log(res.toString());
-      // dataList = res;
+      dataList = res;
       // log(dataList.toString());
     } catch (e) {
       log(e.toString());
@@ -78,10 +80,11 @@ class AudioController extends GetxController {
 
   String getAudioOfSelectedAccent(String selectedAccent) {
     try {
+      log(selectedAccent);
       String audioFile = "";
       for (Map<String, dynamic> data in dataList) {
-        if (data.containsKey(selectedAccent)) {
-          audioFile = data[selectedAccent];
+        if (data["name"] == selectedAccent) {
+          audioFile = data["url"];
           return audioFile;
         }
       }
@@ -109,14 +112,11 @@ class AudioController extends GetxController {
 
   Future<List<String>> getListOfAccents() async {
     try {
-      log(dataList.length.toString());
-      accentList = dataList
-          .map((map) => map.keys.toList())
-          .toList()
-          .expand((list) => list)
-          .toList();
-
-      // log(accentList.toString());
+      // log(dataList.length.toString());
+      for (int i = 0; i < dataList.length; i++) {
+        accentList.add(dataList[i]["name"]);
+      }
+      log(accentList.toString());
       suggestions = accentList;
       return accentList;
     } catch (e) {
