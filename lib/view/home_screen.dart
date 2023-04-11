@@ -105,6 +105,10 @@ class _HomeScreenState extends State<HomeScreen> {
                                     child: ListTile(
                                       title: Text(
                                         controller.suggestions[index],
+                                        style: MyTextStyle.normalTextStyle
+                                            .copyWith(
+                                          fontSize: 18.sp,
+                                        ),
                                       ),
                                     ));
                               },
