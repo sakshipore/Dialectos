@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MyTextField extends StatelessWidget {
   Function(String)? onChanged;
-  TextEditingController controller = new TextEditingController();
+  TextEditingController controller = TextEditingController();
   MyTextField({super.key, required this.controller, this.onChanged});
 
   @override

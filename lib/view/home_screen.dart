@@ -89,7 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 return GestureDetector(
                                     onTap: () async {
                                       String selectedAccent =
-                                          await controller.accentList[index];
+                                          controller.accentList[index];
                                       log(selectedAccent);
                                       Get.toNamed(RoutesNames.audioScreen,
                                           arguments: selectedAccent);

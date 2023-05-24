@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class MyAppBar extends StatefulWidget with PreferredSizeWidget {
+class MyAppBar extends StatefulWidget implements PreferredSizeWidget {
   const MyAppBar({super.key});
 
   @override
