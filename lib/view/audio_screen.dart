@@ -1,8 +1,7 @@
-
 import 'package:audioplayers/audioplayers.dart';
 import 'package:dialectos/constants/text_style.dart';
 import 'package:dialectos/controllers/audio_controller.dart';
-import 'package:dialectos/widgets/my_appbar.dart';
+import 'package:dialectos/core/widgets/my_appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';

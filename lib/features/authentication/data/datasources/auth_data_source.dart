@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:dialectos/core/error/exception.dart';
 import 'package:dialectos/features/authentication/data/models/user_model.dart';
+import 'package:dialectos/services/shared_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
@@ -11,6 +12,11 @@ abstract class AuthDataSource {
 }
 
 class AuthDataSourceImplementation extends AuthDataSource {
+  final MySharedService _sharedService;
+
+  AuthDataSourceImplementation({required MySharedService sharedService})
+      : _sharedService = sharedService;
+
   UserModel getUserModel(User user) {
     return UserModel(
       name: user.displayName!,
@@ -21,6 +27,16 @@ class AuthDataSourceImplementation extends AuthDataSource {
       phoneNumber: user.phoneNumber ?? "",
       refreshToken: user.refreshToken!,
     );
+  }
+
+  Future<void> setUserData(bool status, String name, String userID) async {
+    try {
+      await _sharedService.setLoginStatus(status);
+      await _sharedService.setSharedFirstName(name);
+      await _sharedService.setSharedUserId(userID);
+    } catch (e) {
+      log("Error in Shared Server : $e");
+    }
   }
 
   @override
@@ -47,6 +63,7 @@ class AuthDataSourceImplementation extends AuthDataSource {
 
         if (user != null) {
           log('User ${user.uid} is signed in');
+          await setUserData(true, user.displayName!, user.uid);
           return getUserModel(user);
         }
       } on FirebaseAuthException catch (e) {
@@ -62,6 +79,7 @@ class AuthDataSourceImplementation extends AuthDataSource {
 
             if (user != null) {
               log('User ${user.uid} is signed up and signed in');
+              await setUserData(true, user.displayName!, user.uid);
               return getUserModel(user);
             }
           } on FirebaseAuthException catch (e) {
@@ -84,6 +102,7 @@ class AuthDataSourceImplementation extends AuthDataSource {
     try {
       await auth.signOut();
       await GoogleSignIn().signOut();
+      await _sharedService.removeSharedService();
       log('User is signed out');
     } catch (e) {
       log('Failed to sign out user: $e');

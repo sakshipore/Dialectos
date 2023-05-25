@@ -1,6 +1,6 @@
 import 'package:dialectos/constants/text_style.dart';
 import 'package:dialectos/controllers/auth_controller.dart';
-import 'package:dialectos/helpers/asset_helper.dart';
+import 'package:dialectos/core/helpers/asset_helper.dart';
 import 'package:dialectos/services/firebase_service.dart';
 import 'package:dialectos/services/shared_service.dart';
 import 'package:flutter/material.dart';
