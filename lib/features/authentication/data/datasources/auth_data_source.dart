@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:dialectos/core/error/exception.dart';
 import 'package:dialectos/features/authentication/data/models/user_model.dart';
-import 'package:dialectos/services/shared_service.dart';
+import 'package:dialectos/core/services/shared_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 

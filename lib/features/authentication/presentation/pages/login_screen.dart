@@ -1,7 +1,8 @@
 import 'package:dialectos/constants/text_style.dart';
-import 'package:dialectos/controllers/auth_controller.dart';
 import 'package:dialectos/core/helpers/asset_helper.dart';
+import 'package:dialectos/core/usecase/base_usecase.dart';
 import 'package:dialectos/core/widgets/loader.dart';
+import 'package:dialectos/features/authentication/presentation/controllers/auth_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -27,7 +28,7 @@ class LoginScreen extends StatelessWidget {
               builder: (controller) {
                 return InkWell(
                   onTap: () async {
-                    await controller.login();
+                    await controller.signIn();
                   },
                   child: Container(
                     height: 40.h,

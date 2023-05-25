@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dialectos/core/error/exception.dart';
 import 'package:dialectos/core/error/failure.dart';
 import 'package:dialectos/core/network/network_info.dart';
@@ -20,6 +22,7 @@ class AuthRepositoryImplementation extends AuthRepository {
     if (await networkInfo.isConnected) {
       try {
         final user = await dataSource.login();
+        log("Inside Login ");
         return right(user);
       } on SignInException {
         return left(SignInFailure());

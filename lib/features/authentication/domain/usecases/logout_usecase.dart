@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dialectos/core/error/failure.dart';
 import 'package:dialectos/core/usecase/base_usecase.dart';
 import 'package:dialectos/features/authentication/domain/repositories/auth_repository.dart';
@@ -10,6 +12,8 @@ class LogOutUseCase extends UseCase<void, NoParams> {
 
   @override
   Future<Either<Failure, void>> call(NoParams params) async {
-    return await authRepository.logout();
+    final res = await authRepository.logout();
+    log("Inside LogOut UseCase");
+    return res;
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dialectos/core/usecase/base_usecase.dart';
 import 'package:dialectos/core/utilities/utilitiy_methods.dart';
 import 'package:dialectos/features/authentication/domain/entities/user_entitiy.dart';
@@ -23,45 +25,56 @@ class AuthController extends GetxController {
     isLoading = true;
     update();
 
-    final result = await login(NoParams());
-    result.fold(
-      (l) {
-        showSnackBar(
-          "OOPS!!!",
-          getStringByFailure(l),
-          isError: true,
-        );
-        isLoading = false;
-        update();
-      },
-      (r) {
-        user = r;
-        isLoading = false;
-        update();
-        Get.offAllNamed(RoutesNames.homeScreen);
-      },
-    );
+    try {
+      final result = await login(NoParams());
+      log("Inside controller");
+      result.fold(
+        (l) {
+          showSnackBar(
+            "OOPS!!!",
+            getStringByFailure(l),
+            isError: true,
+          );
+          isLoading = false;
+          update();
+        },
+        (r) {
+          user = r;
+          log("Inside controller");
+          isLoading = false;
+          update();
+          Get.offAllNamed(RoutesNames.homeScreen);
+        },
+      );
+    } catch (e) {
+      log(e.toString());
+    }
   }
 
   Future<void> signout() async {
     isLoading = true;
     update();
-    final result = await logout(NoParams());
-    result.fold(
-      (l) {
-        showSnackBar(
-          "OOPS!!!",
-          getStringByFailure(l),
-          isError: true,
-        );
-        isLoading = false;
-        update();
-      },
-      (r) {
-        isLoading = false;
-        update();
-        Get.offAllNamed(RoutesNames.loginScreen);
-      },
-    );
+    try {
+      final result = await logout(NoParams());
+      result.fold(
+        (l) {
+          showSnackBar(
+            "OOPS!!!",
+            getStringByFailure(l),
+            isError: true,
+          );
+          isLoading = false;
+          update();
+        },
+        (r) {
+          isLoading = false;
+          update();
+          Get.offAllNamed(RoutesNames.loginScreen);
+        },
+      );
+    } catch (e) {
+      log(e.toString());
+    }
+    log("Inside controller");
   }
 }

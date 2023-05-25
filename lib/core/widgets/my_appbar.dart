@@ -1,11 +1,10 @@
 import 'package:dialectos/constants/text_style.dart';
-import 'package:dialectos/controllers/auth_controller.dart';
 import 'package:dialectos/core/helpers/asset_helper.dart';
-import 'package:dialectos/services/firebase_service.dart';
-import 'package:dialectos/services/shared_service.dart';
+import 'package:dialectos/core/usecase/base_usecase.dart';
+import 'package:dialectos/features/authentication/presentation/controllers/auth_controller.dart';
+import 'package:dialectos/locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 
 class MyAppBar extends StatefulWidget implements PreferredSizeWidget {
   const MyAppBar({super.key});
@@ -37,9 +36,7 @@ class _MyAppBarState extends State<MyAppBar> {
             Spacer(),
             InkWell(
               onTap: () async {
-                AuthController controller = Get.put(
-                    AuthController(MySharedService(), FirebaseService()));
-                await controller.logout();
+                locator.get<AuthController>().signout();
               },
               child: Icon(
                 Icons.exit_to_app_rounded,
